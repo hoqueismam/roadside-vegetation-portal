@@ -1,0 +1,11 @@
+# Files Cloudflare should not publish (the site does not need them)
+.git
+.git/
+.gitignore
+.assetsignore
+wrangler.jsonc
+node_modules/
+gis_source_data/
+tools/
+.wrangler/
+**/.DS_Store
