@@ -317,8 +317,10 @@
     "Noxious broadleaf": "noxious-broadleaf", "Invasive broadleaf": "invasive-broadleaf", "Noxious grass": "noxious-grass",
     "Invasive grass": "invasive-grass", "Woody brush": "woody-brush", "Turf grass (desirable)": "turf",
   };
-  /* ---- Representative photos: Wikimedia Commons, open licenses (hotlinked; attribution shown on Home page and in the site card).
-     Every class and stage has a photo; the illustration is only a fallback if a photo cannot load. ---- */
+  /* ---- Representative photos, one per vegetation class: project photos in img/vegetation/photos/class/<class>.jpg
+     (credits shown on the Home page and in the site card). Growth stages have no photos.
+     Each entry: [image path or URL, title, credit, licence, source page or null].
+     The illustration is only a fallback if a photo cannot load. ---- */
   const LIC_URL = {
     "CC BY 2.0": "https://creativecommons.org/licenses/by/2.0/", "CC BY 2.5": "https://creativecommons.org/licenses/by/2.5/",
     "CC BY 3.0 us": "https://creativecommons.org/licenses/by/3.0/us/", "CC BY 4.0": "https://creativecommons.org/licenses/by/4.0/",
@@ -326,24 +328,12 @@
     "CC BY-SA 4.0": "https://creativecommons.org/licenses/by-sa/4.0/", "CC0": "https://creativecommons.org/publicdomain/zero/1.0/", "Public domain": "https://creativecommons.org/publicdomain/mark/1.0/",
   };
   const PHOTOS = {
-    "class/noxious-broadleaf": ["https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/Cirsium_arvense_2025-07-23-4.jpg/960px-Cirsium_arvense_2025-07-23-4.jpg", "Canada thistle (Cirsium arvense)", "Renée Kools", "CC BY 4.0", "https://commons.wikimedia.org/wiki/File:Cirsium_arvense_2025-07-23-4.jpg"],
-    "class/invasive-broadleaf": ["https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0f/Pastinaca_sativa_146613743.jpg/960px-Pastinaca_sativa_146613743.jpg", "Wild parsnip (Pastinaca sativa)", "Силаева Татьяна Борисовна", "CC0", "https://commons.wikimedia.org/wiki/File:Pastinaca_sativa_146613743.jpg"],
-    "class/noxious-grass": ["https://thumb.wikimedia.org/wikipedia/commons/thumb/6/63/Sorghum_halepense-Sorgho_d%27Alep-20150622.jpg/960px-Sorghum_halepense-Sorgho_d%27Alep-20150622.jpg", "Johnsongrass (Sorghum halepense)", "Daniel Villafruela", "CC BY-SA 4.0", "https://commons.wikimedia.org/wiki/File:Sorghum_halepense-Sorgho_d%27Alep-20150622.jpg"],
-    "class/invasive-grass": ["https://thumb.wikimedia.org/wikipedia/commons/thumb/9/97/Phalaris_arundinacea_-_reed_canary_grass_0158.jpg/960px-Phalaris_arundinacea_-_reed_canary_grass_0158.jpg", "Reed canary grass (Phalaris arundinacea)", "R. A. Nonenmacher", "CC BY-SA 4.0", "https://commons.wikimedia.org/wiki/File:Phalaris_arundinacea_-_reed_canary_grass_0158.jpg"],
-    "class/woody-brush": ["https://thumb.wikimedia.org/wikipedia/commons/thumb/2/26/Lonicera_maackii_640437988.jpg/960px-Lonicera_maackii_640437988.jpg", "Amur honeysuckle thicket (Lonicera maackii)", "Alex Abair", "CC BY 4.0", "https://commons.wikimedia.org/wiki/File:Lonicera_maackii_640437988.jpg"],
-    "class/turf": ["https://upload.wikimedia.org/wikipedia/commons/3/37/Grass_verge_by_the_B7066_-_geograph.org.uk_-_1538953.jpg", "Mowed grass verge beside a road", "Jim Smillie", "CC BY-SA 2.0", "https://commons.wikimedia.org/wiki/File:Grass_verge_by_the_B7066_-_geograph.org.uk_-_1538953.jpg"],
-    "stage/rosette": ["https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b2/Cirsium_vulgare_%28Speerdistel%29_-_Noordwijk%2C_South_Holland%2C_NL.jpg/960px-Cirsium_vulgare_%28Speerdistel%29_-_Noordwijk%2C_South_Holland%2C_NL.jpg", "Thistle rosette (Cirsium vulgare)", "Rudolphous", "CC BY-SA 4.0", "https://commons.wikimedia.org/wiki/File:Cirsium_vulgare_(Speerdistel)_-_Noordwijk,_South_Holland,_NL.jpg"],
-    "stage/fall-regrowth": ["https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5a/Cirsium_vulgare_at_Jalovec_in_%C4%8C%C3%ADchov%2C_T%C5%99eb%C3%AD%C4%8D_District.jpg/960px-Cirsium_vulgare_at_Jalovec_in_%C4%8C%C3%ADchov%2C_T%C5%99eb%C3%AD%C4%8D_District.jpg", "Thistle regrowth rosette (Cirsium vulgare)", "Jiří Sedláček", "CC BY-SA 4.0", "https://commons.wikimedia.org/wiki/File:Cirsium_vulgare_at_Jalovec_in_%C4%8C%C3%ADchov,_T%C5%99eb%C3%AD%C4%8D_District.jpg"],
-    "stage/vegetative": ["https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ee/Phalaris_arundinacea_HojasyTallo_2010-8-29_SierraMadrona.jpg/960px-Phalaris_arundinacea_HojasyTallo_2010-8-29_SierraMadrona.jpg", "Leafy grass stems before heading (Phalaris arundinacea)", "Javier Martín", "Public domain", "https://commons.wikimedia.org/wiki/File:Phalaris_arundinacea_HojasyTallo_2010-8-29_SierraMadrona.jpg"],
-    "stage/boot": ["https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7d/Eremopyrum_triticeum_%283735544536%29.jpg/960px-Eremopyrum_triticeum_%283735544536%29.jpg", "Grass head swelling in the leaf sheath (boot stage, Eremopyrum triticeum)", "Matt Lavin", "CC BY-SA 2.0", "https://commons.wikimedia.org/wiki/File:Eremopyrum_triticeum_(3735544536).jpg"],
-    "stage/leaf-out": ["https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9c/20150423Euonymus_alatus4.jpg/960px-20150423Euonymus_alatus4.jpg", "Spring leaf-out of an invasive shrub (Euonymus alatus)", "AnRo0002", "CC0", "https://commons.wikimedia.org/wiki/File:20150423Euonymus_alatus4.jpg"],
-    "stage/bolting": ["https://thumb.wikimedia.org/wikipedia/commons/thumb/3/36/Starr-040723-0074-Verbascum_thapsus-bolting-Puu_Mali-Hawaii_%2824419153180%29.jpg/960px-Starr-040723-0074-Verbascum_thapsus-bolting-Puu_Mali-Hawaii_%2824419153180%29.jpg", "Bolting common mullein (Verbascum thapsus)", "Forest and Kim Starr", "CC BY 3.0 us", "https://commons.wikimedia.org/wiki/File:Starr-040723-0074-Verbascum_thapsus-bolting-Puu_Mali-Hawaii_(24419153180).jpg"],
-    "stage/heading": ["https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4d/Phalaris_arundinacea_%283883207046%29.jpg/960px-Phalaris_arundinacea_%283883207046%29.jpg", "Grass heads emerging (Phalaris arundinacea)", "Matt Lavin", "CC BY-SA 2.0", "https://commons.wikimedia.org/wiki/File:Phalaris_arundinacea_(3883207046).jpg"],
-    "stage/full-leaf": ["https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6c/Lonicera_maackii_640437962.jpg/960px-Lonicera_maackii_640437962.jpg", "Amur honeysuckle in full leaf", "Alex Abair", "CC BY 4.0", "https://commons.wikimedia.org/wiki/File:Lonicera_maackii_640437962.jpg"],
-    "stage/flowering": ["https://thumb.wikimedia.org/wikipedia/commons/thumb/1/10/Cirsium_arvense_-_p%C3%B5ldohakas.jpg/960px-Cirsium_arvense_-_p%C3%B5ldohakas.jpg", "Flowering Canada thistle", "Ivar Leidus", "CC BY-SA 3.0", "https://commons.wikimedia.org/wiki/File:Cirsium_arvense_-_p%C3%B5ldohakas.jpg"],
-    "stage/fruiting": ["https://thumb.wikimedia.org/wikipedia/commons/thumb/6/69/Lonicera_maackii_in_Schenley_Park%2C_Pittsburgh_%2815473295805%29.jpg/960px-Lonicera_maackii_in_Schenley_Park%2C_Pittsburgh_%2815473295805%29.jpg", "Amur honeysuckle fruit", "Britt Reints", "CC BY 2.0", "https://commons.wikimedia.org/wiki/File:Lonicera_maackii_in_Schenley_Park,_Pittsburgh_(15473295805).jpg"],
-    "stage/seed-set": ["https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c7/20050716-004-thistle.jpg/960px-20050716-004-thistle.jpg", "Thistle going to seed", "Gary Houston", "CC0", "https://commons.wikimedia.org/wiki/File:20050716-004-thistle.jpg"],
-    "stage/dormant": ["https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b3/Thistle_at_winter_in_Gyurmi.jpg/960px-Thistle_at_winter_in_Gyurmi.jpg", "Dormant thistle in winter", "Maximden", "CC0", "https://commons.wikimedia.org/wiki/File:Thistle_at_winter_in_Gyurmi.jpg"],
+    "class/noxious-broadleaf": ["img/vegetation/photos/class/noxious-broadleaf.jpg", "Canada thistle stand", "Project team", "Project photo", null],
+    "class/invasive-broadleaf": ["img/vegetation/photos/class/invasive-broadleaf.jpg", "Broadleaf plantain (Plantago major)", "Project team", "Project photo", null],
+    "class/noxious-grass": ["img/vegetation/photos/class/noxious-grass.jpg", "Tall clump-forming grass", "Project team", "Project photo", null],
+    "class/invasive-grass": ["img/vegetation/photos/class/invasive-grass.jpg", "Reed canary grass, ribbon grass form (Phalaris arundinacea)", "Project team", "Project photo", null],
+    "class/woody-brush": ["img/vegetation/photos/class/woody-brush.jpg", "Woody groundcover with vine seedlings", "Project team", "Project photo", null],
+    "class/turf": ["img/vegetation/photos/class/turf.jpg", "Roadside turf strip with scattered weeds", "Project team", "Project photo", null],
   };
 
   const illusSrc = (key) => "img/vegetation/" + key + ".svg";
@@ -354,49 +344,57 @@
     return { src: illusSrc(key), fb: illusSrc(key), title: ph ? ph[1] : "Illustration", credit: null, page: null, photo: false };
   }
   const classKey = (vclass) => "class/" + CLASS_IMG[vclass];
-  const stageKey = (stage) => "stage/" + slug(stage);
   const classImg = (vclass) => repImage(classKey(vclass)).src;
-  const stageImg = (stage) => repImage(stageKey(stage)).src;
   // <img> that falls back to the illustration if a photo cannot load; wrapped in a link to the source page for photos
   const imgTag = (r, cls, alt) => '<img class="' + (cls || "") + '" src="' + r.src + '" alt="' + esc(alt || r.title) + '" loading="lazy" onerror="this.onerror=null;this.src=\'' + r.fb + '\'">';
   const linked = (r, inner) => r.page ? '<a href="' + r.page + '" target="_blank" rel="noopener" title="' + esc(r.title + " — " + r.credit + " (open source page)") + '">' + inner + "</a>" : inner;
   const DRIVER_EYE_IN = 42; // AASHTO driver eye height 3.5 ft, used as a visual reference only
   // Height schematic: ruler 0–60 in, plant drawn to h, limit θh and driver-eye reference lines.
+  // Height schematic: vegetation drawn to scale (0–60 in) against the height limit and a driver's eye height.
+  // Sized so the labels stay readable at card width (about 180 px) and when enlarged.
+  const HALO = ' paint-order="stroke" stroke="#f5f8f3" stroke-width="3" stroke-linejoin="round"';
   function heightSVG(h, th) {
-    const y0 = 82, k = 72 / 60, y = (v) => (y0 - Math.min(v, 64) * k).toFixed(1);
+    const y0 = 104, k = 88 / 60, y = (v) => (y0 - Math.min(v, 64) * k).toFixed(1);
     let blades = "";
-    for (let i = 0; i < 18; i++) {
-      const x = 46 + i * 3.2, hh = Math.min(h, 64) * (0.78 + 0.22 * Math.sin(i * 1.7) ** 2), lean = (i % 3 - 1) * 4;
-      blades += '<path d="M' + x + " " + y0 + " Q" + (x + lean * 0.3) + " " + (y0 - hh * k * 0.6).toFixed(1) + " " + (x + lean) + " " + (y0 - hh * k).toFixed(1) + '" stroke="' + (i % 2 ? "#4f8a3a" : "#6aa84f") + '" stroke-width="1.6" fill="none"/>';
+    for (let i = 0; i < 22; i++) {
+      const x = 62 + i * 3.8, hh = Math.min(h, 64) * (0.78 + 0.22 * Math.sin(i * 1.7) ** 2), lean = (i % 3 - 1) * 5;
+      blades += '<path d="M' + x + " " + y0 + " Q" + (x + lean * 0.3) + " " + (y0 - hh * k * 0.6).toFixed(1) + " " + (x + lean) + " " + (y0 - hh * k).toFixed(1) + '" stroke="' + (i % 2 ? "#4f8a3a" : "#6aa84f") + '" stroke-width="2" fill="none"/>';
     }
     let ticks = "";
-    for (let v = 0; v <= 60; v += 12) ticks += '<line x1="14" x2="20" y1="' + y(v) + '" y2="' + y(v) + '" stroke="#555"/><text x="22" y="' + (+y(v) + 3) + '" font-size="7" fill="#555">' + v + "</text>";
-    return '<svg viewBox="0 0 120 90" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="90" fill="#f5f8f3"/>' +
-      '<line x1="14" x2="14" y1="' + y(60) + '" y2="' + y0 + '" stroke="#555"/>' + ticks + blades +
-      '<rect y="' + y0 + '" width="120" height="8" fill="#b9a27a"/>' +
-      '<line x1="34" x2="118" y1="' + y(th.height) + '" y2="' + y(th.height) + '" stroke="#d1432b" stroke-dasharray="4 2"/><text x="118" y="' + (+y(th.height) - 2) + '" font-size="6.5" text-anchor="end" fill="#d1432b">limit ' + th.height + " in</text>" +
-      '<line x1="34" x2="118" y1="' + y(DRIVER_EYE_IN) + '" y2="' + y(DRIVER_EYE_IN) + '" stroke="#2a6fdb" stroke-dasharray="2 2"/><text x="118" y="' + (+y(DRIVER_EYE_IN) - 2) + '" font-size="6.5" text-anchor="end" fill="#2a6fdb">driver eye 42 in</text>' +
-      '<text x="72" y="' + (+y(h) - 3) + '" font-size="8" font-weight="700" text-anchor="middle" fill="#2b3f5d">' + h + " in</text></svg>";
+    for (let v = 0; v <= 60; v += 12) ticks += '<line x1="24" x2="30" y1="' + y(v) + '" y2="' + y(v) + '" stroke="#555"/><text x="21" y="' + (+y(v) + 3.5) + '" font-size="10" text-anchor="end" fill="#444">' + v + "</text>";
+    const line = (v, color, dash, label, above) => '<line x1="30" x2="158" y1="' + y(v) + '" y2="' + y(v) + '" stroke="' + color + '" stroke-width="1.4" stroke-dasharray="' + dash + '"/>' +
+      '<text x="157" y="' + (+y(v) + (above ? -4 : 12)) + '" font-size="10" font-weight="700" text-anchor="end" fill="' + color + '"' + HALO + ">" + label + "</text>";
+    const close = Math.abs(th.height - DRIVER_EYE_IN) < 9;
+    return '<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif"><rect width="160" height="120" fill="#f5f8f3"/>' +
+      '<text x="4" y="8" font-size="8" fill="#666">in</text>' +
+      '<line x1="30" x2="30" y1="' + y(60) + '" y2="' + y0 + '" stroke="#555"/>' + ticks + blades +
+      '<rect y="' + y0 + '" width="160" height="16" fill="#b9a27a"/>' +
+      line(DRIVER_EYE_IN, "#2a6fdb", "3 2", "driver eye " + DRIVER_EYE_IN + " in", true) +
+      line(th.height, "#d1432b", "5 3", "limit " + th.height + " in", !close || th.height > DRIVER_EYE_IN) +
+      // this site's height: a navy marker on the scale and the value in the top-left corner (never collides with the line labels)
+      '<path d="M30 ' + y(h) + ' l8 -4.5 v9 z" fill="#2b3f5d"/>' +
+      '<text x="40" y="16" font-size="13" font-weight="800" fill="#2b3f5d"' + HALO + ">" + h + " in</text></svg>";
   }
-  // Cover schematic: 10x10 quadrat, c cells filled with the target species (deterministic layout per site).
+  // Cover schematic: 10x10 quadrat, c cells filled with weeds (deterministic layout per site).
   function coverSVG(s, th) {
     const c = s.herbicide ? s.density_pct : 0, n = Math.round(c);
     let seed = [...s.id].reduce((a, ch) => (a * 31 + ch.charCodeAt(0)) >>> 0, 7);
     const order = [...Array(100).keys()].sort(() => ((seed = (seed * 1103515245 + 12345) >>> 0) / 4294967296) - 0.5);
     const on = new Set(order.slice(0, n));
     let cells = "";
-    for (let i = 0; i < 100; i++) cells += '<rect x="' + (8 + (i % 10) * 7.4) + '" y="' + (6 + Math.floor(i / 10) * 7.4) + '" width="6.8" height="6.8" rx="1" fill="' + (on.has(i) ? VCLASS_COLORS[s.vclass] : "#cfe3bf") + '"/>';
-    return '<svg viewBox="0 0 120 90" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="90" fill="#f5f8f3"/>' + cells +
-      '<text x="88" y="30" font-size="13" font-weight="800" fill="#2b3f5d">' + (s.herbicide ? c + "%" : "—") + "</text>" +
-      '<text x="88" y="42" font-size="6.5" fill="#555">' + (s.herbicide ? "target cover" : "turf only") + "</text>" +
-      '<text x="88" y="58" font-size="6.5" fill="#d1432b">act at ' + th.density + "%</text></svg>";
+    for (let i = 0; i < 100; i++) cells += '<rect x="' + (7 + (i % 10) * 9.6) + '" y="' + (12 + Math.floor(i / 10) * 9.6) + '" width="8.6" height="8.6" rx="1.5" fill="' + (on.has(i) ? VCLASS_COLORS[s.vclass] : "#cfe3bf") + '"/>';
+    return '<svg viewBox="0 0 176 120" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif"><rect width="176" height="120" fill="#f5f8f3"/>' + cells +
+      '<text x="109" y="46" font-size="24" font-weight="800" fill="#2b3f5d">' + (s.herbicide ? c + "%" : "—") + "</text>" +
+      '<text x="109" y="62" font-size="11" fill="#444">' + (s.herbicide ? "weed cover" : "turf only") + "</text>" +
+      '<text x="109" y="84" font-size="11" font-weight="700" fill="#d1432b">act at ' + th.density + "%</text>" +
+      '<text x="109" y="98" font-size="10.5" fill="#8a5a00">watch at ' + Math.round(th.monFrac * th.density) + "%</text></svg>";
   }
   const svgURI = (svg) => "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
   // Which visual goes with the current "Color by" mode (A5)
   function visualFor(s, mode) {
     const th = thresholds();
     const fromRep = (r, cap) => ({ src: r.src, fb: r.fb, cap: cap + (r.photo ? " · photo: " + r.credit : " · illustration") });
-    if (mode === "stage") return fromRep(repImage(stageKey(s.stage)), "Growth stage: " + s.stage);
+    if (mode === "stage") return fromRep(repImage(classKey(s.vclass)), s.vclass + " · growth stage: " + s.stage);
     if (mode === "height") { const u = svgURI(heightSVG(s.height_in, th)); return { src: u, fb: u, cap: "Height schematic" }; }
     if (mode === "density") { const u = svgURI(coverSVG(s, th)); return { src: u, fb: u, cap: "Cover schematic (10×10 quadrat)" }; }
     return fromRep(repImage(classKey(s.vclass)), s.vclass);
@@ -556,13 +554,13 @@
     const age = daysSince(s.last_inspected);
     // A6: an uploaded site photo wins; otherwise show the class illustration, labelled as representative
     // A6: an uploaded site photo wins; otherwise the representative photo/illustration for the class (linked to its source)
-    const rc = repImage(classKey(s.vclass)), rs = repImage(stageKey(s.stage));
+    const rc = repImage(classKey(s.vclass));
     const photo = s._photo
       ? '<img src="' + s._photo + '" alt="Uploaded photo of site ' + esc(s.id) + '">'
       : linked(rc, imgTag(rc, "", "Representative " + (rc.photo ? "photo" : "illustration") + " of " + s.vclass)) +
         '<span class="rep-tag">Representative ' + (rc.photo ? "photo" : "image") + " · not of this site</span>";
     const photoCredit = !s._photo && rc.photo
-      ? '<p class="credit-line">' + esc(rc.title) + " · " + esc(rc.credit) + ' · <a href="' + rc.page + '" target="_blank" rel="noopener">View source ↗</a></p>' : "";
+      ? '<p class="credit-line">' + esc(rc.title) + " · " + esc(rc.credit) + (rc.page ? ' · <a href="' + rc.page + '" target="_blank" rel="noopener">View source ↗</a>' : "") + "</p>" : "";
     // Ground photo (uploaded or representative) and the drone view (aerial imagery of this site with its strip and weed patches)
     const g = siteGeom(s), lastDrone = s.history.filter((e) => /drone/i.test(e.type) && /inspection/i.test(e.type)).pop();
     const gallery = '<div class="toggle gal-tabs" role="tablist" aria-label="Site images">' +
@@ -575,10 +573,12 @@
     const pri = s._pri, priBlock = pri.score ? '<div><h3 class="sec-title">Priority ' + priBadge(pri.score) + '<small class="muted">of 100</small></h3><div class="pri-parts">' +
       Object.entries(PRI_PARTS).map(([k, [lbl, max]]) => '<span>' + lbl + '</span><i style="--w:' + (100 * (pri.parts[k] || 0) / max) + '%"></i><b>' + (pri.parts[k] || 0) + "/" + max + "</b>").join("") + "</div></div>" : "";
     const th = thresholds();
+    // height and cover schematics side by side (the growth stage is listed under Vegetation); click either to enlarge
+    const zoomFig = (src, cap, alt, fb, zcap) => '<figure><button type="button" class="zoomable" data-src="' + esc(src) + '" data-cap="' + esc(zcap || cap) + '" aria-label="Enlarge: ' + esc(cap) + '">' +
+      '<img src="' + esc(src) + '" alt="' + esc(alt) + '"' + (fb ? ' onerror="this.onerror=null;this.src=\'' + esc(fb) + '\';this.parentNode.dataset.src=this.src"' : "") + "></button><figcaption>" + esc(cap) + "</figcaption></figure>";
     const strip = '<div class="rep-strip">' +
-      '<figure>' + linked(rs, imgTag(rs, "", s.stage)) + "<figcaption>" + esc(s.stage) + (rs.photo ? " · photo" : "") + "</figcaption></figure>" +
-      '<figure><img src="' + svgURI(heightSVG(s.height_in, th)) + '" alt=""><figcaption>Height</figcaption></figure>' +
-      '<figure><img src="' + svgURI(coverSVG(s, th)) + '" alt=""><figcaption>Cover</figcaption></figure></div>';
+      zoomFig(svgURI(heightSVG(s.height_in, th)), "Height: " + s.height_in + " in", "Height schematic") +
+      zoomFig(svgURI(coverSVG(s, th)), "Cover: " + (s.herbicide ? s.density_pct + "% weeds" : "turf only"), "Cover schematic") + "</div>";
     // Screening card: one row per check, one result each; the most serious result sets the status
     const RES = { act: "Act", watch: "Watch", ok: "OK", na: "—" };
     const coverBar = (k) => {
@@ -1347,9 +1347,6 @@
   /* ----------------------------------------------------- 9. find a location (state / county / interstate) */
   const STATES = [["01","Alabama"],["02","Alaska"],["04","Arizona"],["05","Arkansas"],["06","California"],["08","Colorado"],["09","Connecticut"],["10","Delaware"],["11","District of Columbia"],["12","Florida"],["13","Georgia"],["15","Hawaii"],["16","Idaho"],["17","Illinois"],["18","Indiana"],["19","Iowa"],["20","Kansas"],["21","Kentucky"],["22","Louisiana"],["23","Maine"],["24","Maryland"],["25","Massachusetts"],["26","Michigan"],["27","Minnesota"],["28","Mississippi"],["29","Missouri"],["30","Montana"],["31","Nebraska"],["32","Nevada"],["33","New Hampshire"],["34","New Jersey"],["35","New Mexico"],["36","New York"],["37","North Carolina"],["38","North Dakota"],["39","Ohio"],["40","Oklahoma"],["41","Oregon"],["42","Pennsylvania"],["44","Rhode Island"],["45","South Carolina"],["46","South Dakota"],["47","Tennessee"],["48","Texas"],["49","Utah"],["50","Vermont"],["51","Virginia"],["53","Washington"],["54","West Virginia"],["55","Wisconsin"],["56","Wyoming"]];
   const POOLED = ["06","08","17","18","20","26","27","28","29","38","42","48"]; // AMT pooled fund member states
-  $("locState").insertAdjacentHTML("beforeend",
-    '<optgroup label="AMT pooled fund states">' + STATES.filter((x) => POOLED.includes(x[0])).map((x) => '<option value="' + x[0] + '">' + x[1] + "</option>").join("") + "</optgroup>" +
-    '<optgroup label="All states">' + STATES.map((x) => '<option value="' + x[0] + '">' + x[1] + "</option>").join("") + "</optgroup>");
   const TIGER = "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/";
   const outlineLayer = L.layerGroup().addTo(map);
   async function showBoundary(layerId, where, label) {
@@ -1364,23 +1361,20 @@
       job.done();
     } catch (e) { job.set(1, "could not reach Census TIGERweb"); setTimeout(() => job.done(), 2500); }
   }
-  $("locState").addEventListener("change", async () => {
-    const st = $("locState").value, cs = $("locCounty");
-    cs.disabled = true; cs.innerHTML = '<option value="">Loading counties…</option>';
-    if (!st) { cs.innerHTML = '<option value="">Choose a state first</option>'; return; }
-    showBoundary(0, "STATE='" + st + "'", "State boundary");
-    const job = LoadKit.Mini.start("County list");
-    try {
-      const txt = await LoadKit.fetchText(TIGER + "1/query?where=" + encodeURIComponent("STATE='" + st + "'") + "&outFields=NAME,GEOID&returnGeometry=false&orderByFields=NAME&f=json", 20000, (p) => job.set(p));
-      const j = JSON.parse(txt);
-      cs.innerHTML = '<option value="">All counties</option>' + (j.features || []).map((f) => '<option value="' + f.attributes.GEOID + '">' + esc(f.attributes.NAME) + "</option>").join("");
-      cs.disabled = false; job.done();
-    } catch (e) { cs.innerHTML = '<option value="">Could not load counties</option>'; job.set(1, "Census TIGERweb unavailable"); setTimeout(() => job.done(), 2500); }
+
+  /* ----------------------------------------------------- image zoom (site card pictures) */
+  const zoomBox = document.createElement("div");
+  zoomBox.className = "zoom-box"; zoomBox.hidden = true; zoomBox.setAttribute("role", "dialog"); zoomBox.setAttribute("aria-modal", "true");
+  zoomBox.innerHTML = '<figure><img alt=""><figcaption></figcaption></figure><button type="button" class="zoom-x" aria-label="Close">×</button>';
+  document.body.appendChild(zoomBox);
+  let zoomFrom = null;
+  function closeZoom() { zoomBox.hidden = true; if (zoomFrom) zoomFrom.focus(); zoomFrom = null; }
+  document.addEventListener("click", (e) => {
+    const z = e.target.closest(".zoomable");
+    if (z) { zoomFrom = z; zoomBox.querySelector("img").src = z.dataset.src; zoomBox.querySelector("figcaption").textContent = z.dataset.cap; zoomBox.hidden = false; zoomBox.querySelector(".zoom-x").focus(); return; }
+    if (!zoomBox.hidden && (e.target === zoomBox || e.target.closest(".zoom-x"))) closeZoom();
   });
-  $("locCounty").addEventListener("change", () => {
-    const g = $("locCounty").value;
-    if (g) showBoundary(1, "GEOID='" + g + "'", "County boundary"); else if ($("locState").value) showBoundary(0, "STATE='" + $("locState").value + "'", "State boundary");
-  });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !zoomBox.hidden) closeZoom(); });
 
   /* ----------------------------------------------------- 9a. minimize the left panels to one row */
   document.querySelectorAll(".float-panel .collapse").forEach((b) => b.addEventListener("click", () => {
@@ -1398,9 +1392,67 @@
   function fillRoutes() {
     const r = regionOf(DATA_COUNTIES[$("psCounty").value]);
     $("psRoute").innerHTML = '<option value="all">All routes</option>' + r.routes.map((x) => '<option value="' + x + '">' + x + "</option>").join("");
+    $("psRouteQ").value = ""; $("psRouteNote").textContent = "";
   }
   fillRoutes();
   const planMode = () => document.querySelector('input[name="pMode"]:checked').value;
+
+  // ---- Vegetation Information > Location: same rule as planning. Only Illinois and the two counties with
+  //      vegetation data can be chosen; the rest are listed but disabled. The interstate search finds routes
+  //      with vegetation data (in the chosen county, if one is chosen), zooms to them and sets the route filter.
+  const COUNTY_GEOID = { Champaign: "17019", Cook: "17031" };
+  $("locState").innerHTML = STATES.map((x) => '<option value="' + x[0] + '"' + (x[0] === "17" ? " selected" : " disabled") + ">" + x[1] + (x[0] === "17" ? "" : NA) + "</option>").join("");
+  $("locCounty").innerHTML = '<option value="" disabled selected hidden>Choose a county…</option>' +
+    IL_COUNTIES.map((c) => '<option value="' + c + '"' + (DATA_COUNTIES[c] ? "" : " disabled") + ">" + c + (DATA_COUNTIES[c] ? "" : NA) + "</option>").join("");
+  const locSites = () => { const r = DATA_COUNTIES[$("locCounty").value]; return D.sites.filter((x) => !r || x.region === r); };
+  function fitSites(list) {
+    const pts = list.flatMap((x) => [x.coords[0], x.coords[x.coords.length - 1]]);
+    if (pts.length) map.fitBounds(L.latLngBounds(pts).pad(0.08), fitPad());
+  }
+  // Route search used by both panels: "I57", "i-57", "57", "US 45", "I-57 Cook" all work.
+  // Returns { route, county } (county only if typed) or null when no route with vegetation data matches.
+  const ALL_ROUTES = [...new Set(D.sites.map((x) => x.route))].sort();
+  function parseRoute(raw) {
+    const m = raw.trim().toUpperCase().match(/^(?:(US|I)\s*-?\s*)?(\d+)\s*(CHAMPAIGN|COOK)?(?:\s*COUNTY)?$/);
+    if (!m) return null;
+    const route = ALL_ROUTES.find((r) => r === (m[1] === "US" ? "US-" : "I-") + m[2] && (m[1] || r.startsWith("I-"))) || ALL_ROUTES.find((r) => r.endsWith("-" + m[2]));
+    return route ? { route, county: m[3] ? m[3][0] + m[3].slice(1).toLowerCase() : "" } : null;
+  }
+  function goRoute() {
+    const raw = $("locRoute").value.trim(), note = $("locNote");
+    if (!raw) { note.textContent = "Type a route name or number."; return; }
+    const pr = parseRoute(raw);
+    if (!pr) { note.textContent = "No vegetation data for " + raw + ". Routes with data: " + ALL_ROUTES.join(", ") + "."; return; }
+    const route = pr.route;
+    let county = pr.county || $("locCounty").value;
+    let list = D.sites.filter((x) => x.route === route && (!county || x.region === DATA_COUNTIES[county]));
+    if (!list.length) {
+      const asked = county;
+      list = D.sites.filter((x) => x.route === route);
+      const regs = [...new Set(list.map((x) => x.region))];
+      county = regs.length === 1 ? Object.keys(DATA_COUNTIES).find((k) => DATA_COUNTIES[k] === regs[0]) : "";
+      note.textContent = route + " has no vegetation data in " + asked + " County. Showing it in " + (county ? county + " County" : "both counties") + ".";
+    }
+    else note.textContent = "Showing " + route + (county ? " in " + county + " County" : "") + ".";
+    if (!county && $("locCounty").value) $("locCounty").selectedIndex = 0;
+    if (county && $("locCounty").value !== county) $("locCounty").value = county;
+    $("thRoute").value = route; $("thRoute").dispatchEvent(new Event("input"));
+    fitSites(list);
+  }
+  $("locCounty").addEventListener("change", () => {
+    const c = $("locCounty").value;
+    fitSites(locSites());
+    showBoundary(1, "GEOID='" + COUNTY_GEOID[c] + "'", "County boundary");
+    $("locNote").textContent = "";
+  });
+  $("locGo").addEventListener("click", goRoute);
+  // County chosen from a Home "Demo areas" card (js/pages.js sets PENDING_COUNTY)
+  window.applyPendingCounty = () => {
+    const c = window.PENDING_COUNTY; if (!c || !COUNTY_GEOID[c]) return;
+    window.PENDING_COUNTY = null;
+    $("locCounty").value = c; $("locCounty").dispatchEvent(new Event("change"));
+  };
+  $("locRoute").addEventListener("keydown", (e) => { if (e.key === "Enter") goRoute(); });
 
   // ---- drawn polygon
   let drawing = false, drawPts = [], drawPoly = null, placingDepot = false;
@@ -1470,7 +1522,8 @@
     const flagged = sel.ok ? D.sites.filter((s) => s._rec && s.region === sel.region && sel.filter(s)).length : 0;
     $("pRun").disabled = !sel.ok || !flagged;
     $("pReady").hidden = sel.ok && flagged > 0;
-    $("pReady").textContent = !sel.ok ? sel.msg : flagged ? "" : "No flagged sites in this selection.";
+    const unticked = sel.ok && !flagged && D.sites.some((x) => x._auto && x.region === sel.region && sel.filter(x));
+    $("pReady").textContent = !sel.ok ? sel.msg : flagged ? "" : unticked ? "All sites are unticked. Tick at least one site in Recommended actions." : "No flagged sites in this selection.";
     return { sel, flagged };
   }
   function onPlanAreaChange(fit) {
@@ -1486,38 +1539,69 @@
       if (pts.length) map.fitBounds(L.latLngBounds(pts).pad(0.08), fitPad());
     }
   }
-  // ---- Recommendations card: every flagged site in the selection with its recommended action; the planner can change it
+  // ---- Recommendations card: every flagged site in the selection with its recommended action.
+  //      All sites start ticked; untick a site to leave it out of the plan (overrides[id] = "skip").
+  //      The menu changes the action (overrides[id] = action); actionOf remembers it while a site is unticked.
+  const actionOf = {};
   const REC_TILES = { spray: ["Drone spray", "--a-spray"], mow: ["Mow", "--a-mow"], inspect: ["Inspect", "--a-inspect"], skip: ["Left out", "--muted"] };
   state.recFilter = null;
+  let recShown = []; // ids of the rows currently listed (after the tile filter)
   function renderRecs() {
     const sel = planSel();
     const pool = sel.ok ? D.sites.filter((s) => s._auto && s.region === sel.region && sel.filter(s)) : [];
     const key = (s) => (s._rec ? s._rec.action : "skip"), n = { spray: 0, mow: 0, inspect: 0, skip: 0 };
     pool.forEach((s) => n[key(s)]++);
+    const picked = pool.length - n.skip;
     $("recTitle").textContent = "Recommended actions · " + pool.length + " site" + (pool.length === 1 ? "" : "s");
     $("recSummary").innerHTML = Object.entries(REC_TILES).map(([k, [lbl, v]]) =>
       '<button type="button" class="stat" data-a="' + k + '" aria-pressed="' + (state.recFilter === k) + '" style="--c:var(' + v + ')"><b>' + n[k] + "</b><span>" + lbl + "</span></button>").join("");
     const list = pool.filter((s) => !state.recFilter || key(s) === state.recFilter).sort((a, b) => b._pri.score - a._pri.score || a.id.localeCompare(b.id));
-    $("recList").innerHTML = list.map((s) =>
-      '<li data-id="' + s.id + '">' + shield(s.route) + '<div tabindex="0"><div class="sid">' + esc(s.route + " " + s.dir + " · " + s.label) + '</div><div class="why">' +
-      esc(s._rec ? s._rec.why : "Left out of the plan by the planner") + "</div></div>" + priBadge(s._pri.score) +
-      '<select data-id="' + s.id + '" aria-label="Action for ' + esc(s.id) + '" class="act-sel' + (overrides[s.id] ? " changed" : "") + '">' +
-      ["spray", "mow", "inspect", "skip"].map((a) => '<option value="' + a + '"' + (key(s) === a ? " selected" : "") + ">" + (a === "skip" ? "Leave out" : ACTION[a].label) + (a === s._auto.action ? " (recommended)" : "") + "</option>").join("") +
-      "</select></li>").join("") || '<li class="empty">' + (sel.ok ? "No flagged sites in this group." : esc(sel.msg)) + "</li>";
+    recShown = list.map((s) => s.id);
+    const on = list.filter((s) => overrides[s.id] !== "skip").length;
+    const all = $("recAll");
+    all.checked = list.length > 0 && on === list.length; all.indeterminate = on > 0 && on < list.length; all.disabled = !list.length;
+    $("recAllLbl").textContent = state.recFilter ? "Select all shown" : "Select all";
+    $("recCount").textContent = picked + " of " + pool.length + " selected";
+    $("recList").innerHTML = list.map((s) => {
+      const inPlan = overrides[s.id] !== "skip", a = actionOf[s.id] || s._auto.action;
+      return '<li data-id="' + s.id + '" class="' + (inPlan ? "" : "off") + '">' +
+        '<input type="checkbox" class="rec-tick" data-id="' + s.id + '"' + (inPlan ? " checked" : "") + ' aria-label="Include ' + esc(s.route + " " + s.dir + " " + s.label) + ' in the plan">' +
+        shield(s.route) + '<div tabindex="0"><div class="sid">' + esc(s.route + " " + s.dir + " · " + s.label) + '</div><div class="why">' +
+        esc(!inPlan ? "Left out of the plan" : s._rec ? s._rec.why : s._auto.why) + "</div></div>" + priBadge(s._pri.score) +
+        '<select data-id="' + s.id + '" aria-label="Action for ' + esc(s.id) + '" class="act-sel' + (a !== s._auto.action ? " changed" : "") + '"' + (inPlan ? "" : " disabled") + ">" +
+        ["spray", "mow", "inspect"].map((x) => '<option value="' + x + '"' + (x === a ? " selected" : "") + ">" + ACTION[x].label + (x === s._auto.action ? " (recommended)" : "") + "</option>").join("") +
+        "</select></li>";
+    }).join("") || '<li class="empty">' + (sel.ok ? "No flagged sites in this group." : esc(sel.msg)) + "</li>";
   }
   function showRecs() { $("drawer").hidden = true; state.selected = null; $("planOut").hidden = true; $("recCard").hidden = false; renderSites(); }
+  function recChanged() {
+    if (state.plan) { state.plan = null; state.tl = null; planLayer.clearLayers(); coverLayer.clearLayers(); toast("Selection changed: generate the plan again."); }
+    renderSites();
+  }
   $("recOpen").addEventListener("click", showRecs);
   $("recClose").addEventListener("click", () => { $("recCard").hidden = true; if (state.plan) $("planOut").hidden = false; });
   $("recSummary").addEventListener("click", (e) => { const t = e.target.closest(".stat"); if (!t) return; state.recFilter = state.recFilter === t.dataset.a ? null : t.dataset.a; renderRecs(); });
+  $("recAll").addEventListener("change", () => {
+    const on = $("recAll").checked;
+    recShown.forEach((id) => setTick(id, on));
+    recChanged();
+  });
+  function setTick(id, on) {
+    const a = actionOf[id];
+    if (!on) overrides[id] = "skip";
+    else if (a && a !== byId[id]._auto.action) overrides[id] = a;
+    else delete overrides[id];
+  }
   $("recList").addEventListener("change", (e) => {
+    const t = e.target.closest(".rec-tick");
+    if (t) { setTick(t.dataset.id, t.checked); recChanged(); return; }
     const sel = e.target.closest("select[data-id]"); if (!sel) return;
     const s = byId[sel.dataset.id];
-    if (sel.value === s._auto.action) delete overrides[s.id]; else overrides[s.id] = sel.value;
-    if (state.plan) { state.plan = null; state.tl = null; planLayer.clearLayers(); coverLayer.clearLayers(); toast("Actions changed: generate the plan again."); }
-    renderSites();
+    if (sel.value === s._auto.action) { delete actionOf[s.id]; delete overrides[s.id]; } else { actionOf[s.id] = sel.value; overrides[s.id] = sel.value; }
+    recChanged();
   });
-  $("recList").addEventListener("click", (e) => { if (e.target.closest("select")) return; const li = e.target.closest("li[data-id]"); if (li) focusSite(li.dataset.id); });
-  $("recList").addEventListener("keydown", (e) => { if (e.key === "Enter" && !e.target.closest("select")) { const li = e.target.closest("li[data-id]"); if (li) focusSite(li.dataset.id); } });
+  $("recList").addEventListener("click", (e) => { if (e.target.closest("input, select")) return; const li = e.target.closest("li[data-id]"); if (li) focusSite(li.dataset.id); });
+  $("recList").addEventListener("keydown", (e) => { if (e.key === "Enter" && !e.target.closest("input, select")) { const li = e.target.closest("li[data-id]"); if (li) focusSite(li.dataset.id); } });
 
   document.querySelectorAll('input[name="pMode"]').forEach((r) => r.addEventListener("change", () => {
     const m = planMode();
@@ -1526,7 +1610,69 @@
     onPlanAreaChange(m === "loc");
   }));
   $("psCounty").addEventListener("change", () => { fillRoutes(); onPlanAreaChange(true); });
-  $("psRoute").addEventListener("change", () => onPlanAreaChange(true));
+  // Route search in the planning panel: empty = all routes in the county; a route in the other county switches county
+  function goPlanRoute() {
+    const raw = $("psRouteQ").value.trim(), note = $("psRouteNote");
+    if (!raw || /^all( routes)?$/i.test(raw)) { $("psRouteQ").value = ""; $("psRoute").value = "all"; note.textContent = "All routes in " + $("psCounty").value + " County."; onPlanAreaChange(true); return; }
+    const pr = parseRoute(raw);
+    if (!pr) { note.textContent = "No vegetation data for " + raw + ". Routes with data: " + ALL_ROUTES.join(", ") + "."; return; }
+    const inCounty = (c) => D.sites.some((x) => x.route === pr.route && x.region === DATA_COUNTIES[c]);
+    let county = pr.county || $("psCounty").value;
+    let msg = "";
+    if (!inCounty(county)) {
+      const other = Object.keys(DATA_COUNTIES).find(inCounty);
+      msg = pr.route + " has no vegetation data in " + county + " County; switched to " + other + " County. ";
+      county = other;
+    }
+    if ($("psCounty").value !== county) { $("psCounty").value = county; fillRoutes(); }
+    $("psRoute").value = pr.route; $("psRouteQ").value = pr.route;
+    note.textContent = msg + "Planning on " + pr.route + " in " + county + " County.";
+    onPlanAreaChange(true);
+  }
+  $("psRouteGo").addEventListener("click", goPlanRoute);
+  $("psRouteQ").addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); goPlanRoute(); } });
+
+  /* ---- Route suggestions for both search boxes: type any part ("5", "I5", "57", "cook", "US 45")
+     and the matching routes with vegetation data appear, each with its county and number of sites. ---- */
+  const normQ = (t) => t.toUpperCase().replace(/[\s-]+/g, "").replace(/COUNTY$/, "");
+  const COMBOS = Object.keys(DATA_COUNTIES).flatMap((c) => ALL_ROUTES.map((r) => {
+    const n = D.sites.filter((x) => x.route === r && x.region === DATA_COUNTIES[c]).length;
+    return n ? { route: r, county: c, n, keys: [normQ(r) + normQ(c), normQ(c) + normQ(r)] } : null;
+  }).filter(Boolean)).sort((a, b) => a.route.localeCompare(b.route, undefined, { numeric: true }) || a.county.localeCompare(b.county));
+  function attachSuggest(input, preferCounty, onPick) {
+    const row = input.closest(".search-row"), box = document.createElement("ul");
+    box.className = "suggest"; box.hidden = true; box.setAttribute("role", "listbox"); box.id = input.id + "Sug";
+    input.setAttribute("aria-controls", box.id); row.appendChild(box);
+    let items = [], active = -1;
+    const close = () => { box.hidden = true; active = -1; input.setAttribute("aria-expanded", "false"); };
+    function render() {
+      const q = normQ(input.value), pc = preferCounty();
+      items = COMBOS.filter((c) => !q || c.keys.some((k) => k.includes(q)))
+        .sort((a, b) => (b.county === pc) - (a.county === pc)); // the chosen county's routes first
+      if (!items.length) {
+        box.innerHTML = '<li class="none">No route with vegetation data matches. Routes: ' + ALL_ROUTES.join(", ") + "</li>";
+      } else {
+        box.innerHTML = items.map((c, i) => '<li role="option" data-i="' + i + '" class="' + (i === active ? "on" : "") + '"><b>' + c.route + "</b><span>" + c.county + " County · " + c.n + " sites</span></li>").join("");
+      }
+      box.hidden = false; input.setAttribute("aria-expanded", "true");
+    }
+    function pick(i) { const c = items[i]; if (!c) return; input.value = c.route + " " + c.county; close(); onPick(); }
+    input.addEventListener("input", () => { active = -1; render(); });
+    input.addEventListener("focus", render);
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+        e.preventDefault(); if (box.hidden) render();
+        active = Math.max(0, Math.min(items.length - 1, active + (e.key === "ArrowDown" ? 1 : -1))); render();
+        const el = box.querySelector("li.on"); if (el) el.scrollIntoView({ block: "nearest" });
+      } else if (e.key === "Enter" && active >= 0 && !box.hidden) { e.preventDefault(); e.stopImmediatePropagation(); pick(active); }
+      else if (e.key === "Escape") close();
+      else if (e.key === "Enter") close();
+    }, true); // capture: runs before the box's own Enter-to-search handler
+    box.addEventListener("mousedown", (e) => { const li = e.target.closest("li[data-i]"); if (li) { e.preventDefault(); pick(+li.dataset.i); } });
+    input.addEventListener("blur", () => setTimeout(close, 120));
+  }
+  attachSuggest($("locRoute"), () => $("locCounty").value, goRoute);
+  attachSuggest($("psRouteQ"), () => $("psCounty").value, goPlanRoute);
 
   // ---- depots: one row per depot; options are the depots of the selected county (plus any placed on the map)
   state.depotRows = [D.depots.find((d) => d.region === state.region).id];
@@ -1603,30 +1749,6 @@
   const usLayer = L.layerGroup();
   let US = null;
   const syncUS = () => { if (US && $("lyrUS").checked && map.getZoom() < 9) usLayer.addTo(map); else map.removeLayer(usLayer); };
-  function buildRouteSearch() {
-    const opts = [];
-    Object.keys(US.index).sort((a, b) => parseInt(a.slice(2)) - parseInt(b.slice(2))).forEach((r) => {
-      opts.push(r); Object.keys(US.index[r]).sort().forEach((st) => opts.push(r + " " + st));
-    });
-    $("routeList").innerHTML = opts.map((o) => '<option value="' + o + '">').join("");
-  }
-  const hiLayer = L.layerGroup().addTo(map);
-  function goRoute() {
-    const q = $("locRoute").value.trim().toUpperCase().replace(/^I\s*-?\s*/, "I-");
-    const m = q.match(/^(I-\d+[A-Z]?)\s*([A-Z]{2})?$/);
-    hiLayer.clearLayers();
-    if (!US) { $("locNote").textContent = "The national interstate list is still loading. Try again in a moment."; return; }
-    if (!m || !US.index[m[1]]) { $("locNote").textContent = "Route not found. Try a form like I-80 or I-80 IL."; return; }
-    const boxes = m[2] ? [US.index[m[1]][m[2]]].filter(Boolean) : Object.values(US.index[m[1]]);
-    if (!boxes.length) { $("locNote").textContent = m[1] + " does not run through " + m[2] + "."; return; }
-    const b = L.latLngBounds(boxes.flatMap((x) => [[x[0], x[1]], [x[2], x[3]]]));
-    const num = m[1].slice(2);
-    US.lines.filter((l) => l[0] === num).forEach((l) => L.polyline(l[1], { color: "#fe6f1a", weight: 4, opacity: 0.85, renderer: canvasR, interactive: false }).addTo(hiLayer));
-    map.fitBounds(b.pad(0.05), fitPad());
-    $("locNote").textContent = "Showing " + m[1] + (m[2] ? " in " + m[2] : "") + ". Zoom in to load road detail from FHWA.";
-  }
-  $("locGo").addEventListener("click", goRoute);
-  $("locRoute").addEventListener("keydown", (e) => { if (e.key === "Enter") goRoute(); });
 
   const NHS_URL = "https://geo.dot.gov/server/rest/services/Hosted/National_Highway_System_(20210815)/FeatureServer/0/query";
   const nhsLayer = L.layerGroup();
@@ -1675,13 +1797,13 @@
       await LoadKit.loadScript("data/us_interstates.js", 1361375, (p) => job.set(p * 0.9, "downloading"));
       US = window.US_INTERSTATES;
       US.lines.forEach((l) => L.polyline(l[1], { color: "#2b3f5d", weight: 1.6, opacity: 0.55, renderer: canvasR, interactive: false }).addTo(usLayer));
-      buildRouteSearch(); syncUS(); job.done();
+      syncUS(); job.done();
     } catch (e) { job.set(1, "could not load"); setTimeout(() => job.done(), 2500); }
   }
 
   /* ----------------------------------------------------- 11. photo credits (Home page) */
   $("credits").innerHTML = Object.entries(PHOTOS).map(([k, ph]) =>
-    '<li><a href="' + ph[4] + '" target="_blank" rel="noopener">' + esc(ph[1]) + "</a> — " + esc(ph[2]) + ", " +
+    "<li>" + (ph[4] ? '<a href="' + ph[4] + '" target="_blank" rel="noopener">' + esc(ph[1]) + "</a>" : esc(ph[1])) + " — " + esc(ph[2]) + ", " +
     (LIC_URL[ph[3]] ? '<a href="' + LIC_URL[ph[3]] + '" target="_blank" rel="noopener">' + esc(ph[3]) + "</a>" : esc(ph[3])) +
     ' <span class="muted">(' + esc(k.replace("/", ": ")) + ")</span></li>").join("") +
     '<li class="muted">Height and cover schematics are drawn by the portal.</li>';
@@ -1700,7 +1822,7 @@
 
   /* ---- Collapsible panel sections (data-fold="open|closed"); a folded section shows a one-line summary ---- */
   const FOLD_SUM = {
-    loc: () => ($("locState").value ? $("locState").selectedOptions[0].textContent + ($("locCounty").value ? ", " + $("locCounty").selectedOptions[0].textContent : "") : "Demo areas"),
+    loc: () => "Illinois" + ($("locCounty").value ? " · " + $("locCounty").value + " County" : ""),
     layers: () => { const c = [...$("panel-veg").querySelectorAll('[data-sum="layers"] input[type="checkbox"]')]; return c.filter((x) => x.checked).length + " of " + c.length + " on"; },
     cost: () => (document.querySelector('input[name="pBudgetMode"]:checked').value === "max" ? "Budget " + money(+$("pBudget").value || 0) : "No budget limit") + " · $" + $("cLabor").value + "/h labor",
     ops: () => dayDate($("pDate").value, 1) + " · " + $("pStart").value + " · " + $("pHours").value + " h · wind " + $("pWind").value + " mph",
@@ -1730,5 +1852,6 @@
   renderPatches();
   setView((location.hash || "#home").slice(1));
   onPlanAreaChange();
+  setTimeout(window.applyPendingCounty, 80); // a Demo areas card clicked while the map was still loading
   if (window.LoadKit) { LoadKit.Big.hide(); loadNational(); }
 })();

@@ -109,13 +109,13 @@
           <div>
             <h2 class="sec-h">Demo areas</h2>
             <div class="regions">
-              <a class="region" href="#veg" data-view="veg">
-                <h3>Champaign–Urbana</h3>
+              <a class="region" href="#veg" data-view="veg" data-county="Champaign" title="Show Champaign County on the vegetation map">
+                <h3>Champaign</h3>
                 <p class="r-routes"><span class="shield i">74</span><span class="shield i">57</span><span class="shield us">45</span></p>
                 <p class="r-meta">192 sites · IDOT yards 543 and 544</p>
               </a>
-              <a class="region" href="#veg" data-view="veg">
-                <h3>Chicago area</h3>
+              <a class="region" href="#veg" data-view="veg" data-county="Cook" title="Show Cook County (Chicago) on the vegetation map">
+                <h3>Chicago</h3>
                 <p class="r-routes"><span class="shield i">55</span><span class="shield i">57</span><span class="shield i">80</span></p>
                 <p class="r-meta">100 sites · 6 IDOT yards</p>
               </a>
@@ -127,7 +127,7 @@
             <p class="note">Road data is real (FHWA HPMS 2024, IDOT mileposts and yards). Vegetation records are example data.</p>
             <details class="credits-box">
               <summary>Photo credits</summary>
-              <p class="note" style="margin-top:0">Representative photos from Wikimedia Commons, under the licenses listed. They show the vegetation type, not the specific site.</p>
+              <p class="note" style="margin-top:0">Representative photos from the project team. They show the vegetation type, not the specific site.</p>
               <ul class="credits" id="credits"></ul>
             </details>
           </div>
@@ -150,14 +150,13 @@
     <aside class="float-panel" id="panel-veg" data-for="veg" aria-label="Vegetation information controls">
       <div class="fp-top"><h2 class="fp-title">Vegetation Information</h2><button class="collapse" type="button" aria-expanded="true" aria-label="Minimize panel" title="Minimize panel"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 12.5 10 7.5 15 12.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
       <div class="fp-sec" data-fold="closed" data-sum="loc">
-        <h4>Location <i class="info" tabindex="0" role="img" aria-label="Vegetation data is available for Champaign County (Champaign–Urbana) and Cook County (Chicago area). Elsewhere the map shows roads only; road detail loads from FHWA when you zoom in." data-tip="Vegetation data is available for Champaign County (Champaign–Urbana) and Cook County (Chicago area). Elsewhere the map shows roads only; road detail loads from FHWA when you zoom in.">i</i></h4>
+        <h4>Location <i class="info" tabindex="0" role="img" aria-label="Vegetation data is available only for Champaign County and Cook County (Chicago), so other states and counties cannot be chosen yet. Searching a route zooms to it and filters the site list." data-tip="Vegetation data is available only for Champaign County and Cook County (Chicago), so other states and counties cannot be chosen yet. Searching a route zooms to it and filters the site list.">i</i></h4>
         <div class="grid2">
-          <label class="field"><span>State</span><select id="locState"><option value="">Choose a state…</option></select></label>
-          <label class="field"><span>County</span><select id="locCounty" disabled><option value="">Choose a state first</option></select></label>
+          <label class="field"><span>State</span><select id="locState"></select></label>
+          <label class="field"><span>County</span><select id="locCounty"></select></label>
         </div>
         <label class="field"><span>Interstate</span>
-          <div class="search-row"><input type="text" id="locRoute" list="routeList" placeholder="e.g. I-80 or I-80 IL" autocomplete="off"><button class="btn btn-navy" id="locGo" type="button">Go</button></div>
-          <datalist id="routeList"></datalist></label>
+          <div class="search-row"><input type="text" id="locRoute" placeholder="Search a route" role="combobox" aria-autocomplete="list" aria-expanded="false" autocomplete="off"><button class="btn btn-navy" id="locGo" type="button">Go</button></div></label>
         <p class="hint" id="locNote"></p>
       </div>
 
@@ -243,7 +242,10 @@
             <label class="field"><span>State</span><select id="psState"></select></label>
             <label class="field"><span>County</span><select id="psCounty"></select></label>
           </div>
-          <label class="field"><span>Route <i class="info" tabindex="0" role="img" aria-label="Plan for one interstate or U.S. route, or for all routes in the county." data-tip="Plan for one interstate or U.S. route, or for all routes in the county.">i</i></span><select id="psRoute"></select></label>
+          <label class="field"><span>Route <i class="info" tabindex="0" role="img" aria-label="Search an interstate or U.S. route and press Go to plan for that route only. Leave it empty for all routes in the county." data-tip="Search an interstate or U.S. route and press Go to plan for that route only. Leave it empty for all routes in the county.">i</i></span>
+            <div class="search-row"><input type="text" id="psRouteQ" placeholder="All routes, or search a route" role="combobox" aria-autocomplete="list" aria-expanded="false" autocomplete="off"><button class="btn btn-navy" id="psRouteGo" type="button">Go</button></div>
+            <select id="psRoute" hidden></select></label>
+          <p class="hint" id="psRouteNote"></p>
         </div>
         <div class="pm" id="pmDraw" hidden>
           <div class="grid2">
@@ -303,7 +305,7 @@
         </div>
         <label class="field" id="pBudgetRow" hidden><span>Budget ($) <i class="info" tabindex="0" role="img" aria-label="The plan takes flagged sites in priority order until the budget is used. Lower-priority sites are deferred and listed in the results." data-tip="The plan takes flagged sites in priority order until the budget is used. Lower-priority sites are deferred and listed in the results.">i</i></span><input type="number" id="pBudget" min="0" step="500" value="10000"></label>
         <details class="adv" id="costBox">
-          <summary>Unit costs (illustrative, editable)</summary>
+          <summary>Unit costs</summary>
           <div class="grid2">
             <label class="field"><span>Crew labor ($/person-h)</span><input type="number" id="cLabor" min="0" step="1" value="45"></label>
             <label class="field"><span>Vehicle ($/mile)</span><input type="number" id="cMile" min="0" step="0.05" value="0.70"></label>
@@ -359,12 +361,16 @@
       </div>
     </aside>
 
-    <!-- ---------- Recommendations card (right, planning): one recommended action per flagged site; the planner can change it ---------- -->
+    <!-- ---------- Recommendations card (right, planning): one recommended action per flagged site; untick a site to leave it out ---------- -->
     <aside class="detail-card" id="recCard" hidden aria-label="Recommended actions">
       <div class="dc-head"><span id="recTitle">Recommended actions</span><button class="x" id="recClose" type="button" aria-label="Close recommended actions"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button></div>
       <div class="dc-body">
-        <p class="caveat">Each flagged site gets an action from the screening rules: spot spray weeds with a drone, mow turf, tall growth or weeds about to seed, and scout sites that are due for inspection. Change an action to override it; the plan uses your choice. ★ marks the recommended action.</p>
+        <p class="caveat">Each flagged site gets an action from the screening rules: spot spray weeds with a drone, mow turf, tall growth or weeds about to seed, and scout sites that are due for inspection. Change an action to override it; the plan uses your choice. All sites start selected; untick a site to leave it out of the plan.</p>
         <div class="stats s4" id="recSummary" role="group" aria-label="Show sites by action"></div>
+        <div class="rec-bar">
+          <label><input type="checkbox" id="recAll" checked> <span id="recAllLbl">Select all</span></label>
+          <span id="recCount" aria-live="polite"></span>
+        </div>
         <ol class="site-list rec-list" id="recList" aria-label="Flagged sites"></ol>
         <p class="hint">Then set crews and conditions on the left and press <b>Generate Plan</b>.</p>
       </div>
@@ -467,11 +473,6 @@
               <span class="headshot" data-initials="YO" aria-hidden="true"><img src="img/team/yanfeng-ouyang.jpg" alt="" loading="lazy" onerror="this.remove()"></span>
               <figcaption><b>Yanfeng Ouyang</b><span class="role">Principal Investigator</span><small>University of Illinois Urbana-Champaign</small></figcaption>
             </figure>
-            <figure class="profile linked">
-              <a class="p-hit" href="https://cee.illinois.edu/directory/profile/ataleb" target="_blank" rel="noopener" aria-label="Alireza Talebpour, faculty profile (opens in a new tab)"></a>
-              <span class="headshot" data-initials="AT" aria-hidden="true"><img src="img/team/alireza-talebpour.jpg" alt="" loading="lazy" onerror="this.remove()"></span>
-              <figcaption><b>Alireza Talebpour</b><span class="role">Faculty</span><small>University of Illinois Urbana-Champaign</small></figcaption>
-            </figure>
           </div>
           <h2 class="team-h">Researchers</h2>
           <div class="profiles grid">
@@ -486,10 +487,6 @@
             <figure class="profile">
               <span class="headshot" data-initials="RH" aria-hidden="true"><img src="img/team/run-hu.jpg" alt="" loading="lazy" onerror="this.remove()"></span>
               <figcaption><b>Run Hu</b><span class="role">Graduate Research Assistant</span><small>University of Illinois Urbana-Champaign</small></figcaption>
-            </figure>
-            <figure class="profile">
-              <span class="headshot" data-initials="SB" aria-hidden="true"><img src="img/team/shayan-bafandkar.jpg" alt="" loading="lazy" onerror="this.remove()"></span>
-              <figcaption><b>Shayan Bafandkar</b><span class="role">Graduate Research Assistant</span><small>University of Illinois Urbana-Champaign</small></figcaption>
             </figure>
             <figure class="profile">
               <span class="headshot" data-initials="TR" aria-hidden="true"><img src="img/team/tina-radvand.jpg" alt="" loading="lazy" onerror="this.remove()"></span>
@@ -562,7 +559,7 @@
         <span>Roads: FHWA HPMS 2024, NHS 2021</span>
         <span>Mileposts and maintenance yards: IDOT</span>
         <span>Basemaps and imagery: Esri</span>
-        <span>Photos: Wikimedia Commons (credits on Home)</span>
+        <span>Photos: project team (credits on Home)</span>
       </div>
       <p class="sf-note">Research prototype. Vegetation, inspection and control records are example data, not for operational use.</p>
     </div>

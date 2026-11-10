@@ -15,7 +15,7 @@ python -m http.server 8000
 
 Then open http://localhost:8000 in a browser.
 
-You need an internet connection for the map background (Esri tiles, no API key), web fonts, the representative photos (Wikimedia Commons), and on-demand road detail (FHWA) and county lookups (Census TIGERweb). Everything else works offline.
+You need an internet connection for the map background (Esri tiles, no API key), web fonts, and on-demand road detail (FHWA) and county lookups (Census TIGERweb). Everything else works offline.
 
 A circular progress ring shows loading progress at startup and for background jobs.
 
@@ -28,10 +28,10 @@ The header uses a placeholder mark. To use the official University of Illinois B
 | Page | Purpose |
 |---|---|
 | **Home** | Hero with the main actions, a live snapshot of the demo network (sites, miles, acres, sites needing control), links to the three tools, the demo areas and a short project summary. Reading pages share a footer with data sources. |
-| **Vegetation Information** | Roadside sites in both demo areas (Champaign–Urbana and Chicago), shown together. Zoom in to see each site's roadside vegetation area (the 30 ft right-of-way strip) and, closer still, the weed patches inside it. Click a segment or area for vegetation type, height, cover, growth stage, a priority score, a ground photo and a drone view (satellite imagery of the site with its strip and patches), and the inspection and control history. Add records (optionally with a new height, cover or stage), attach photos, upload field updates as CSV or GeoJSON (rows with a `site_id` update that site and add records; the template button gives an example), export the site layer, and screen the network with adjustable triggers. The site list ranks flagged sites by priority. |
+| **Vegetation Information** | Roadside sites in both demo areas (Champaign and Chicago), shown together. Zoom in to see each site's roadside vegetation area (the 30 ft right-of-way strip) and, closer still, the weed patches inside it. Click a segment or area for vegetation type, height, cover, growth stage, a priority score, a ground photo and a drone view (satellite imagery of the site with its strip and patches), and the inspection and control history. Add records (optionally with a new height, cover or stage), attach photos, upload field updates as CSV or GeoJSON (rows with a `site_id` update that site and add records; the template button gives an example), export the site layer, and screen the network with adjustable triggers. The site list ranks flagged sites by priority. |
 | **Operations Planning** | Choose the sites by location (state → county → route, or all routes), by drawing an area on the map, or by picking sites. The Recommended actions card lists each flagged site with its action (drone spot spraying, mowing or further inspection) and reason; the planner can change or drop any of them. Crews start from IDOT maintenance yards (or a place you put on the map). Other inputs: drone model, number of crews, work hours, wind and spray volume. Outputs: routes on the map, schedule, duration and herbicide use, plus a timeline (Gantt chart and Play slider) that moves each crew along its route. Zoomed in, the map shows the drone's spray passes over the weed patches and the mower's passes along the strip. Costs and budget: every plan, crew and site gets an estimated cost (crew labor, drone or mower time, herbicide, vehicle travel), with a comparison against ground boom-truck spraying of the same sites. With a maximum budget, the plan keeps the highest-priority sites that fit and defers the rest. Exports schedule (CSV, with costs) and routes (GeoJSON). |
 | **Drone Technology** | Interactive 3D models of the three spray drones (drag to turn, spinning rotors, spray-system highlight, part names on hover), the market survey table (Task 1.2) and key FAA rules. |
-| **Team** | Faculty and researchers at the University of Illinois, IDOT contacts and pooled fund chairs, and a map of the 12 pooled fund member states with Indiana DOT as lead agency. Headshots are in `img/team/<first-last>.jpg` (square, 400 px): faculty from the CEE directory, Prof. Ouyang's students from his group page, and Shayan Bafandkar and Tina Radvand from the team. A profile without a photo shows initials. |
+| **Team** | Faculty and researchers at the University of Illinois, IDOT contacts and pooled fund chairs, and a map of the 12 pooled fund member states with Indiana DOT as lead agency. Headshots are in `img/team/<first-last>.jpg` (square, 400 px): faculty from the CEE directory, Prof. Ouyang's students from his group page, and Tina Radvand from the team. A profile without a photo shows initials. |
 
 ## Files
 
@@ -47,7 +47,7 @@ data/data.js        sites (Champaign + Chicago), routing network, mileposts (gen
 data/hpms.js        HPMS 2024 highway network layer (generated)
 data/us_interstates.js  national interstate overview + route search index (generated)
 data/us_states.js   lower-48 state outlines for the Team map (generated)
-img/vegetation/     illustrations (photos are linked from Wikimedia Commons)
+img/vegetation/     vegetation class photos (photos/class/), fallback illustrations; see its README
 img/drones/         product images for the Drone Technology page
 img/drones/3d/      3D drone models (.glb), built by tools/gen_drones_blender.py
 img/hero-drone.webp Home page hero image (ARES model render, tools/render_hero.py)
@@ -72,8 +72,8 @@ gis_source_data/    source GIS files (FHWA HPMS 2024, FHWA NHS 2021, IDOT milepo
 - **Example data:** vegetation, inspection and control history, and herbicide rates. Replace these when IDOT or field data arrives.
 - **Illustrative:** unit costs in Operations Planning (labor, vehicle, drone, mower and boom-truck rates, herbicide prices; editable in the panel), weed patch outlines (their total area matches each site's weed cover), drone spray swaths (a planning assumption shown in the drone table), coverage paths and the priority score weights.
 - Demo regions:
-  - Champaign–Urbana: I-74 (MP 169–197), I-57 (MP 218–257), US-45 north and south. 192 sites.
-  - Chicago area (Cook County): I-55 (MP 276–294), I-57 (MP 338–358), I-80 (MP 149–163). 100 sites.
+  - Champaign (Champaign County): I-74 (MP 169–197), I-57 (MP 218–257), US-45 north and south. 192 sites.
+  - Chicago (Cook County): I-55 (MP 276–294), I-57 (MP 338–358), I-80 (MP 149–163). 100 sites.
 - Anywhere else in the U.S.: choose a state/county or search an interstate; road detail loads from FHWA when you zoom in.
 - To regenerate the data (from the repository root; the output is identical to the files in `data/`):
 
@@ -93,7 +93,7 @@ The navy header band and orange navigation bar use the University of Illinois co
 
 ## Photos
 
-Representative photos come from Wikimedia Commons (CC BY, CC BY-SA, CC0 or public domain). Every vegetation class and growth stage has a photo. Credits are listed on the Home page and in each site card, with links to the source pages. The illustrations in `img/vegetation/` are only a fallback if a photo cannot load.
+Vegetation class photos are project photos in `img/vegetation/photos/class/`; credits are listed on the Home page and in each site card. Growth stages are shown as text and map colours, without photos. The illustrations are only a fallback if a photo cannot load. See `img/vegetation/README.md` for how to change an image.
 
 ## Next steps (back end)
 
